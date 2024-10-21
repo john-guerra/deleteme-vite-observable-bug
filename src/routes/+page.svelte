@@ -1,16 +1,20 @@
 <script type="module">
   import { Runtime, Inspector } from "@observablehq/runtime";
   import define from "@fil/druidjs-worker";
-
+  import { onMount } from "svelte";
   const notebook = new Runtime().module(define, (name) => {
     return ["result"].includes(name);      
   });
 
   $: result = null;
 
-  notebook.value("result").then((value) => {
-    result = value;
+  onMount(async () => {
+    result = await notebook.value("result");
   });
+   
+
+  
+
   
 </script>
 
